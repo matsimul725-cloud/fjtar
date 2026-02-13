@@ -35,7 +35,7 @@ header {
 }
 
 .logo img {
-    height: 80px; /* Dopasuj wysokość logo jeśli trzeba */
+    height: 80px;
     display: block;
 }
 
@@ -67,14 +67,14 @@ header {
 
 /* Hero Section */
 .hero {
+    margin-top: 30px;
     padding: 60px 0px;
     height: 500px;
     background: url('hero.jpg') no-repeat center center/cover;
     display: flex;
-    align-items: flex-end; /* Tekst na dole zdjęcia jak w projekcie */
+    align-items: flex-end; 
     justify-content: center;
     position: relative;
-    
 }
 
 .hero::after {
@@ -96,7 +96,7 @@ header {
     font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 1px;
-    background: rgba(0, 0, 0, 0.4); /* Lekkie tło pod tekstem dla czytelności */
+    background: rgba(0, 0, 0, 0.4); 
     padding: 15px 30px;
     display: inline-block;
 }
@@ -125,25 +125,26 @@ header {
     background-size: cover;
     background-position: center;
     transition: transform 0.3s ease;
+    cursor: pointer; /* Dodany kursor wskazujący na to, że można kliknąć */
 }
 
 .grid-item:hover {
     transform: scale(1.02);
 }
-/* --- LIGHTBOX --- */
 
+/* --- LIGHTBOX --- */
 .lightbox {
-    display: none; /* Domyślnie ukryte */
+    display: none; 
     position: fixed;
     z-index: 9999;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.85); /* Ciemne, półprzezroczyste tło */
+    background-color: rgba(0, 0, 0, 0.85); 
     justify-content: center;
     align-items: center;
-    backdrop-filter: blur(5px); /* Opcjonalne: lekkie rozmycie tła za zdjęciem */
+    backdrop-filter: blur(5px); 
 }
 
 .lightbox img {
@@ -151,7 +152,7 @@ header {
     max-height: 90vh;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
     border-radius: 4px;
-    animation: fadeIn 0.3s ease-in-out; /* Płynne pojawianie się zdjęcia */
+    animation: fadeIn 0.3s ease-in-out; 
 }
 
 .close-btn {
@@ -170,38 +171,28 @@ header {
     color: #bbb;
 }
 
-/* Animacja pojawiania się */
 @keyframes fadeIn {
     from { opacity: 0; transform: scale(0.95); }
     to { opacity: 1; transform: scale(1); }
 }
 
-/* --- STYLE DLA STRZAŁEK --- */
 .prev-btn, .next-btn {
     position: absolute;
-    top: 50%; /* Środek wysokości */
-    transform: translateY(-50%); /* Idealne wyśrodkowanie w pionie */
+    top: 50%; 
+    transform: translateY(-50%); 
     color: white;
     font-size: 50px;
     font-weight: bold;
     cursor: pointer;
     padding: 16px;
-    user-select: none; /* Zapobiega przypadkowemu zaznaczaniu tekstu przy szybkim klikaniu */
+    user-select: none; 
     transition: color 0.3s ease;
     z-index: 10000;
 }
 
-.prev-btn {
-    left: 20px;
-}
-
-.next-btn {
-    right: 20px;
-}
-
-.prev-btn:hover, .next-btn:hover {
-    color: #bbb;
-}
+.prev-btn { left: 20px; }
+.next-btn { right: 20px; }
+.prev-btn:hover, .next-btn:hover { color: #bbb; }
 
 /* About Section */
 .about {
@@ -238,11 +229,21 @@ header {
     font-size: 14px;
     margin-bottom: 30px;
     line-height: 1.8;
+    transition: all 0.3s ease-in-out;
 }
 
+.about-text p.collapsed {
+    display: -webkit-box;
+    -webkit-line-clamp: 3; 
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
+
+/* Przyciski globalne */
 .btn-dark {
     display: inline-block;
-    background: #3e3228; /* Kolor z projektu */
+    background: #3e3228; 
     color: #fff;
     padding: 12px 30px;
     text-decoration: none;
@@ -250,11 +251,75 @@ header {
     font-weight: 600;
     letter-spacing: 0.5px;
     transition: background 0.3s;
+    cursor: pointer;
 }
 
 .btn-dark:hover {
     background: #5a4a3b;
 }
+
+/* --- FORMULARZ KONTAKTOWY (MODAL) --- */
+.contact-modal {
+    display: none; /* Domyślnie ukryte */
+    position: fixed;
+    z-index: 10001; /* Ponad headerem */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Przyciemnienie tła */
+    backdrop-filter: blur(3px); /* Rozmycie tła */
+    justify-content: center;
+    align-items: center;
+}
+
+.contact-modal-content {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 450px;
+    position: relative;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.close-contact-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    color: #999;
+    font-size: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.close-contact-btn:hover {
+    color: #333;
+}
+
+.form-input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: #3e3228; /* Dopasowanie do kolorystyki */
+}
+
+.form-textarea {
+    height: 120px;
+    resize: vertical; /* Możliwość zmiany tylko wysokości */
+}
+
 
 /* Footer */
 footer {
@@ -268,7 +333,7 @@ footer::before {
     content: '';
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(30, 20, 10, 0.7); /* Przyciemnienie tekstury drewna */
+    background: rgba(30, 20, 10, 0.7); 
 }
 
 .footer-content {
@@ -283,8 +348,6 @@ footer::before {
 
 .footer-logo {
     height: 100px;
-    /* Filtr na wypadek gdybyś użył logo.jpg z tłem, ale lepiej użyć logo-white.png */
-    /* filter: brightness(0) invert(1); */ 
 }
 
 .footer-info {
@@ -302,36 +365,28 @@ footer::before {
 .footer-socials {
     font-size: 30px;
     display: flex;
-    
 }
 
 .fa {
   width: 50px;
   text-align: center;
   text-decoration: none;
-  
+  transition: opacity 0.3s;
 }
 
 .fa:hover {
     opacity: 0.7;
 }
 
-.fa-facebook {
-  color: white;
-}
-
-.fa-instagram {
-  color: white;
-}
-
-.fa-whatsapp{
+/* Zoptymalizowany kod ikon */
+.fa-facebook, .fa-instagram, .fa-whatsapp {
   color: white;
 }
 
 /* Responsywność (Mobile) */
 @media (max-width: 768px) {
     .nav-links {
-        display: none; /* Tu można dodać menu JS, na razie ukrywamy */
+        display: none; 
     }
     .mobile-menu-icon {
         display: block;
