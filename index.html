@@ -55,6 +55,10 @@
             <div class="grid-item" style="background-image: url('t18.jpg');"></div>
 	    <div class="grid-item" style="background-image: url('t19.jpg');"></div>
 	    <div class="grid-item" style="background-image: url('t20.jpg');"></div>
+	    <div class="grid-item" style="background-image: url('t21.jpg');"></div>
+            <div class="grid-item" style="background-image: url('t22.jpg');"></div>
+	    <div class="grid-item" style="background-image: url('t23.jpg');"></div>
+
         </div>
     </section></div>
 
@@ -79,10 +83,10 @@
             
             <div class="footer-info">
                 <div class="info-item">
-                    <span style="font-size: x-large">&#9990;</span> +48 739 637 470
+                    <span style="font-size: x-large">&#9990;</span><b> +48 739 637 470 </b>
                 </div>
                 <div class="info-item">
-                    <span style="font-size: x-large">&#128231</span> fjtar@op.pl
+                    <span style="font-size: x-large">&#128231</span><b> fjtar@op.pl </b>
                 </div>
             </div>
 
@@ -93,6 +97,95 @@
             </div>
         </div>
     </footer>
+
+
+<div id="lightbox" class="lightbox">
+    <span class="close-btn">&times;</span>
+    <span class="prev-btn">&#10094;</span> <span class="next-btn">&#10095;</span> <img id="lightbox-img" src="" alt="Powiększone zdjęcie">
+</div>
+<script>document.addEventListener('DOMContentLoaded', () => {
+    // Zamieniamy NodeList na zwykłą tablicę (Array), aby łatwiej odczytywać indeksy
+    const gridItems = Array.from(document.querySelectorAll('.grid-item')); 
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const closeBtn = document.querySelector('.close-btn');
+    const prevBtn = document.querySelector('.prev-btn');
+    const nextBtn = document.querySelector('.next-btn');
+
+    let currentIndex = 0; // Pamięta, które zdjęcie przeglądamy
+
+    // Funkcja wyciągająca URL z obrazka
+    function getImageUrl(element) {
+        const bgImg = element.style.backgroundImage;
+        return bgImg.replace(/(url\(|\)|"|')/g, '');
+    }
+
+    // Funkcja zmieniająca zdjęcie w okienku
+    function showImage(index) {
+        const url = getImageUrl(gridItems[index]);
+        if (url && url !== 'none') {
+            lightboxImg.src = url;
+            currentIndex = index; // Zaktualizuj obecny indeks
+        }
+    }
+
+    // 1. Otwieranie zdjęcia po kliknięciu w miniaturę
+    gridItems.forEach((item, index) => {
+        item.addEventListener('click', function() {
+            showImage(index);
+            lightbox.style.display = 'flex';
+        });
+    });
+
+    // 2. Kliknięcie strzałki w prawo (Następne)
+    nextBtn.addEventListener('click', () => {
+        let newIndex = currentIndex + 1;
+        // Jeśli jesteśmy na ostatnim zdjęciu, wróć do pierwszego (zapętlenie)
+        if (newIndex >= gridItems.length) {
+            newIndex = 0; 
+        }
+        showImage(newIndex);
+    });
+
+    // 3. Kliknięcie strzałki w lewo (Poprzednie)
+    prevBtn.addEventListener('click', () => {
+        let newIndex = currentIndex - 1;
+        // Jeśli jesteśmy na pierwszym zdjęciu, przejdź do ostatniego
+        if (newIndex < 0) {
+            newIndex = gridItems.length - 1; 
+        }
+        showImage(newIndex);
+    });
+
+    // 4. Zamykanie po kliknięciu "X"
+    closeBtn.addEventListener('click', () => {
+        lightbox.style.display = 'none';
+        lightboxImg.src = '';
+    });
+
+    // 5. Zamykanie po kliknięciu w ciemne tło (ale nie w zdjęcie ani strzałki!)
+    lightbox.addEventListener('click', (e) => {
+        // e.target to element, w który dokładnie kliknięto
+        if (e.target === lightbox) { 
+            lightbox.style.display = 'none';
+            lightboxImg.src = '';
+        }
+    });
+
+    // 6. Obsługa klawiatury!
+    document.addEventListener('keydown', (e) => {
+        // Uruchamiamy klawisze tylko wtedy, gdy lightbox jest otwarty
+        if (lightbox.style.display === 'flex') {
+            if (e.key === 'ArrowRight') {
+                nextBtn.click(); // Symuluje kliknięcie strzałki w prawo
+            } else if (e.key === 'ArrowLeft') {
+                prevBtn.click(); // Symuluje kliknięcie strzałki w lewo
+            } else if (e.key === 'Escape') {
+                closeBtn.click(); // Symuluje kliknięcie "X"
+            }
+        }
+    });
+});</script>
 
 </body>
 </html>
